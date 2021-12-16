@@ -42,12 +42,16 @@ jobs:
         src: src
         tag: ${{steps.config.outputs.repo }}:${{ steps.sver.outputs.version }}
         revision: "$GITHUB_SHA"
+      env:
+        POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
 
     - name: Policy Push
       id: policy-push
       uses: opcr-io/policy-push-action@v1
       with:
         tag: ${{ steps.config.outputs.repo }}:${{ steps.sver.outputs.version }}
+      env:
+        POLICY_DEFAULT_DOMAIN: ${{ steps.config.outputs.server }}
 
     - name: Policy Logout
       id: policy-logout
