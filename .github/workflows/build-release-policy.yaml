@@ -26,22 +26,13 @@ jobs:
     - name: Calculate Tag
       uses: aserto-dev/sver-action@v0.0.14
       id: "sver"
-      with:
-        next: patch
-
-    - name: create config
-      id: create-config
-      run: |
-        mkdir -p $HOME/.config/policy
-        echo "default_domain: registry.eng.opcr.io" >  $HOME/.config/policy/config.yaml
-        cat $HOME/.config/policy/config.yaml
 
     - name: Policy Login
       id: policy-login
       uses: opcr-io/policy-login-action@v1
       with:
         username: ${{ steps.config.outputs.username }}
-        password: ${{ secrets.ASERTO_ENG_PUSH_KEY }}
+        password: ${{ secrets.ASERTO_BETA_PUSH_KEY }}
         server: ${{ steps.config.outputs.server }}
 
     - name: Policy Build
